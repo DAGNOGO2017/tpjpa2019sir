@@ -21,7 +21,7 @@ public class JpaTest {
 
 	
     public static void main(String[] args) {
-        EntityManagerFactory factory =   Persistence.createEntityManagerFactory("example");
+        EntityManagerFactory factory =   Persistence.createEntityManagerFactory("dev");
         EntityManager manager = factory.createEntityManager();
         JpaTest test = new JpaTest(manager);
 
@@ -40,10 +40,19 @@ public class JpaTest {
         System.out.println(".. done");
     }
 
-    private void createUsers() {
-        int numOfUsers = manager.createQuery("Select u From User u", User.class).getResultList().size();
-        manager.persist(new User("Jakab Gipsz"));
-    }
-
-
+    // Enregistrement d'un nouvel utilisateur
+    public void createUsers( ) {
+       User user = new User();
+       user.setNom("DAGNOGO");
+       user.setPrenom("kikson");
+       user.setEmail("kiko123");
+       
+     //--- persistons ce user dans la base
+      // EntityTransaction tx = manager.getTransaction();
+       System.out.println( "Début de la transaction");
+         System.out.println( "Ajout du user dans la base en cours..." );
+         manager.persist(user );
+         System.out.println( "Transaction validée");
+       }
+ 
 }
